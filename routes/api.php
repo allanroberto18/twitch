@@ -20,6 +20,7 @@ Route::group(['prefix' => 'token'], function() {
 
 Route::group(['prefix' => 'callback'], function() {
     Route::get('/handler', 'WebhookCallbackController@handler');
+    Route::post('/handler', 'WebhookCallbackController@handler');
 });
 
 Route::group(['prefix' => 'streams'], function() {

@@ -55,7 +55,15 @@ class PusherEvent implements ShouldBroadcast
      * @param string $language
      * @param string $type
      */
-    public function __construct(int $userId, string $username, string $title, int $viewers, string $language, string $type)
+    public function __construct(
+        int $userId,
+        string $username,
+        string $title,
+        int $viewers,
+        string $language,
+        string $type,
+        string $message = ''
+    )
     {
         $this->userId = $userId;
         $this->username = $username;
@@ -64,7 +72,7 @@ class PusherEvent implements ShouldBroadcast
         $this->language = $language;
         $this->type = $type;
 
-        $this->message = $this->getMessage();
+        $this->message = empty($message) ? $this->getMessage() : $message;
     }
 
     private function getMessage(): string
