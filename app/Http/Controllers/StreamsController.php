@@ -83,6 +83,6 @@ class StreamsController extends Controller
         $language = $data['language'];
         $type = $data['type'];
 
-        // event(new PusherEvent($userId, $userName, $title, $viewers, $language, $type));
+         event(new PusherEvent($userId, $userName, $title, $viewers, $language, $type));
     }
 }

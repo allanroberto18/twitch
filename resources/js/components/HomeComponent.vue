@@ -12,7 +12,11 @@
                                        aria-label="insert your favorite streamer"
                                        aria-describedby="choose your channel">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary text-white btn-outline-secondary" v-on:click="embedStream(channel)" type="button">
+                                    <button class="btn btn-primary text-white btn-outline-secondary"
+                                            v-on:click="embedStream(channel)"
+                                            v-scroll-to="'#embed'"
+                                            type="button"
+                                    >
                                         Search
                                     </button>
                                 </div>
@@ -41,7 +45,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ item.user_name }} | {{ item.type }}</h5>
                         <p class="card-text">{{ item.title }}</p>
-                        <a v-on:click="embedStream(item.user_name)" class="btn btn-primary text-white">Play</a>
+                        <a v-on:click="embedStream(item.user_name)" v-scroll-to="'#embed'" class="btn btn-primary text-white">Play</a>
                     </div>
                 </div>
             </div>
@@ -119,27 +123,16 @@
             },
 
             embedStream(username = '') {
-                console.log(document.getElementById("embed"));
+                this.channelId = '';
+                this.events = [];
+                document.getElementById("embed").innerHTML = "";
+                let embed = {};
 
-                if (username !== '') {
-                    this.channel = username
+                if (username == '') {
+                    return ;
                 }
 
-                document.getElementById("embed").innerHTML = "";
-                let embed = new Twitch.Embed("embed", {
-                    width: '100%',
-                    height: 'auto',
-                    channel: this.channel,
-                    layout: "video-with-chat",
-                    autoplay: false
-                });
-
-                embed.addEventListener(Twitch.Embed.VIDEO_READY, () => {
-                    let player = embed.getPlayer();
-                    player.play();
-                });
-
-                const url = './api/streams/user?channel=' + this.channel + '&oauth=' + this.token;
+                const url = './api/streams/user?channel=' + username + '&oauth=' + this.token;
                 axios
                     .get(url)
                     .then(response => {
@@ -148,7 +141,6 @@
                         this.channel = data.user_name;
                         this.channelId = data.user_id;
                         this.events = [];
-
                         if (this.channel !== '') {
                             const streamDetail = data.user_name + ': ' +
                                 data.title + ', ' +
@@ -167,8 +159,27 @@
                         }
                     })
                     .catch(error => {
-                        console.log(error.response);
-                        console.log('teste');
+                        this.channel = '';
+                        this.channelId = '';
+                        this.events = [];
+                    })
+                    .finally(() => {
+                        if (this.channel == '') {
+                            return;
+                        }
+
+                        embed = new Twitch.Embed("embed", {
+                            width: '100%',
+                            height: 'auto',
+                            channel: this.channel,
+                            layout: "video-with-chat",
+                            autoplay: false
+                        });
+
+                        embed.addEventListener(Twitch.Embed.VIDEO_READY, () => {
+                            let player = embed.getPlayer();
+                            player.play();
+                        });
                     })
                 ;
             }

@@ -24,6 +24,7 @@
         "socket.io-client": "^2.2.0",
         "vue": "^2.5.17",
         "vue-router": "^3.0.2",
+        "vue-scrollto": "^2.15.0",
         "vue-template-compiler": "^2.6.10"
     }
 }
