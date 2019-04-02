@@ -92,7 +92,7 @@
                 this.setChannel();
             }
 
-            this.token = this.getToken();
+            this.token = this.getTokenFromUrl('access_token');
             this.getChannels();
             let embedStream = document.createElement('script');
             embedStream.setAttribute('src', 'https://embed.twitch.tv/embed/v1.js');
@@ -104,8 +104,9 @@
                 this.channel = localStorage.channel;
             },
 
-            getToken() {
-                return this.$route.query.access_token ? this.$route.query.access_token : null;
+            getTokenFromUrl(key) {
+                let matches = this.$route.hash.match(new RegExp(key + '=([^&]*)'));
+                return matches ? matches[1] : null;
             },
 
             getChannels() {
@@ -132,7 +133,7 @@
                     return ;
                 }
 
-                const url = './api/streams/user?channel=' + username + '&oauth=' + this.token;
+                const url = './api/streams/user?channel=' + username + '&token=' + this.token;
                 axios
                     .get(url)
                     .then(response => {

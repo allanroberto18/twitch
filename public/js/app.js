@@ -1880,7 +1880,7 @@ __webpack_require__.r(__webpack_exports__);
       this.setChannel();
     }
 
-    this.token = this.getToken();
+    this.token = this.getTokenFromUrl('access_token');
     this.getChannels();
     var embedStream = document.createElement('script');
     embedStream.setAttribute('src', 'https://embed.twitch.tv/embed/v1.js');
@@ -1890,8 +1890,9 @@ __webpack_require__.r(__webpack_exports__);
     setChannel: function setChannel() {
       this.channel = localStorage.channel;
     },
-    getToken: function getToken() {
-      return this.$route.query.access_token ? this.$route.query.access_token : null;
+    getTokenFromUrl: function getTokenFromUrl(key) {
+      var matches = this.$route.hash.match(new RegExp(key + '=([^&]*)'));
+      return matches ? matches[1] : null;
     },
     getChannels: function getChannels() {
       var _this = this;
@@ -1917,7 +1918,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      var url = './api/streams/user?channel=' + username + '&oauth=' + this.token;
+      var url = './api/streams/user?channel=' + username + '&token=' + this.token;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
         var data = response.data.data[0];
         _this2.channel = data.user_name;

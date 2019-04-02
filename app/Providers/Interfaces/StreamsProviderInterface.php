@@ -13,8 +13,9 @@ interface StreamsProviderInterface
     public function getMostPopularStreams(): ResponseInterface;
 
     /**
-     * @param string $userLogin
-     * @return array
+     * @param string $userName
+     * @param string $token
+     * @return ResponseInterface
      */
-    public function getStreamByUserLogin(string $userLogin): ResponseInterface;
+    public function getStreamByUserLogin(string $userName, string $token): ResponseInterface;
 }

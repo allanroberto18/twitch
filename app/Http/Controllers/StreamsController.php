@@ -47,7 +47,8 @@ class StreamsController extends Controller
     {
         try {
             $channel = $request->get('channel');
-            $response = $this->streamsProvider->getStreamByUserLogin($channel);
+            $token = $request->get('token');
+            $response = $this->streamsProvider->getStreamByUserLogin($channel, $token);
 
             $streamer = json_decode($response->getBody(), true);
 
