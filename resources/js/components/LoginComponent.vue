@@ -32,17 +32,19 @@
         },
         methods: {
             getAuthUrl() {
+                const url = './api/auth/url';
                 axios
-                    .get('./api/auth/url')
+                    .get(url)
                     .then(response => {
                         this.data = response.data;
                     })
                     .catch(error => {
                         this.error = true;
+
+                        console.log('error: ', error);
                     })
                     .finally(() => {
                         this.loading = false;
-                        window.location.href = this.data.auth_url;
                     })
                 ;
             }
