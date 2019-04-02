@@ -13,6 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'token'], function() {
+    Route::get('/access', 'TokenController@accessToken');
+    Route::get('/user', 'TokenController@userAccessToken');
+});
+
+Route::group(['prefix' => 'streams'], function() {
+    Route::get('/popular', 'StreamsController@getMostPopular');
+    Route::get('/user', 'StreamsController@getChannel');
+});
+
+Route::group(['prefix' => 'auth'], function() {
+    Route::get('/url', 'AuthController@getAuthUrl');
 });
