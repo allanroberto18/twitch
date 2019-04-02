@@ -32,9 +32,8 @@
         },
         methods: {
             getAuthUrl() {
-                const url = 'https://alr-twitch.herokuapp.com/api/auth/url';
                 axios
-                    .get(url)
+                    .get('./api/auth/url')
                     .then(response => {
                         this.data = response.data;
                     })
@@ -45,6 +44,7 @@
                     })
                     .finally(() => {
                         this.loading = false;
+                        window.location.href = this.data.auth_url;
                     })
                 ;
             }

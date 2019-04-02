@@ -1999,14 +1999,14 @@ __webpack_require__.r(__webpack_exports__);
     getAuthUrl: function getAuthUrl() {
       var _this = this;
 
-      var url = 'https://alr-twitch.herokuapp.com/api/auth/url';
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('./api/auth/url').then(function (response) {
         _this.data = response.data;
       }).catch(function (error) {
         _this.error = true;
         console.log('error: ', error);
       }).finally(function () {
         _this.loading = false;
+        window.location.href = _this.data.auth_url;
       });
     }
   }
