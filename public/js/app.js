@@ -1999,7 +1999,7 @@ __webpack_require__.r(__webpack_exports__);
     getAuthUrl: function getAuthUrl() {
       var _this = this;
 
-      var url = './api/auth/url';
+      var url = 'https://alr-twitch.herokuapp.com/api/auth/url';
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
         _this.data = response.data;
       }).catch(function (error) {
