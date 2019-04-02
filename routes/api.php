@@ -18,6 +18,10 @@ Route::group(['prefix' => 'token'], function() {
     Route::get('/user', 'TokenController@userAccessToken');
 });
 
+Route::group(['prefix' => 'callback'], function() {
+    Route::get('/handler', 'WebhookCallbackController@handler');
+});
+
 Route::group(['prefix' => 'streams'], function() {
     Route::get('/popular', 'StreamsController@getMostPopular');
     Route::get('/user', 'StreamsController@getChannel');
