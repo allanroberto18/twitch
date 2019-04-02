@@ -36,7 +36,7 @@ class WebhookCallbackController extends Controller
             throw new Exception('something wrong happen');
         }
 
-        $data = $response->get('data');
+        $data = $request->get('data');
         if (empty($data) === false) {
             Log::info('primeiro valor recebido');
         }

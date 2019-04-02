@@ -25,7 +25,7 @@ class WebhookProvider implements WebhookProviderInterface
 
     public function handler(Request $request): array
     {
-        $mode = $request->get('hub.mode');
+        $mode = $request->get('hub_mode');
         $response = [];
         switch ($mode) {
             case 'subscribe':
@@ -42,10 +42,10 @@ class WebhookProvider implements WebhookProviderInterface
     public function subscriptionVerified(Request $request): array
     {
         return [
-            'mode' => $request->get('hub.mode'),
-            'topic' => $request->get('hub.topic'),
-            'leaseSeconds' => $request->get('hub.lease_seconds'),
-            'challenge' => $request->get('hub.challenge')
+            'mode' => $request->get('hub_mode'),
+            'topic' => $request->get('hub_topic'),
+            'leaseSeconds' => $request->get('hub_lease_seconds'),
+            'challenge' => $request->get('hub_challenge')
         ];
     }
 
