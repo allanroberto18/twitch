@@ -42,12 +42,12 @@
 
 **Deployment AWS Scenario**  
 Such kind of application small aplication, to deploy is necessary configure:  
--- **EC2:** linux instance to config PHP/Nginx or PHP/Apache2  
--- **Route53:** for managing DNS  
+- **EC2:** linux instance to config PHP/Nginx or PHP/Apache2  
+- **Route53:** for managing DNS  
 
 **But for improve is necessary**  
--- **S3 and Cloudfront CDN:** hosting static content and cache  
--- **AWS Auto Scaling and Load Balancing:** to manage the request and create new instances when is necessary  
+- **S3 and Cloudfront CDN:** hosting static content and cache  
+- **AWS Auto Scaling and Load Balancing:** to manage the request and create new instances when is necessary  
 
 **About bottlenecks (prevent)**  
 - Put the all static content on S3 + Cloudfront CDN to cache the information and decrease the network traffic;  
