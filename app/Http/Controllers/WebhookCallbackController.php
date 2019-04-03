@@ -28,7 +28,11 @@ class WebhookCallbackController extends Controller
         $this->webhookProvider = $container->make(WebhookProvider::class);
     }
 
-
+    /**
+     * @param Request $request
+     * @return string|null
+     * @throws \Exception
+     */
     public function handler(Request $request): ?string
     {
         $method = $request->method();
@@ -61,7 +65,7 @@ class WebhookCallbackController extends Controller
 
     /**
      * @param Request $request
-     * @return array
+     * @return string
      * @throws \Exception
      */
     private function checkValidationResponse(Request $request): string

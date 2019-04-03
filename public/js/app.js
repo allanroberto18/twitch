@@ -1851,11 +1851,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -11486,8 +11481,83 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-12" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4 mt-4 mb-4" }, [
+        _c("h2", [
+          _vm._v("\n                Most Popular Channels: "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-link",
+              attrs: { type: "button" },
+              on: { click: _vm.getChannels }
+            },
+            [_vm._v("Refresh Channels")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "media mt-4" }, [
+          _c(
+            "ul",
+            { staticClass: "list-unstyled" },
+            _vm._l(_vm.channels.data, function(item) {
+              return _c("li", { staticClass: "media mb-4" }, [
+                _c(
+                  "img",
+                  _vm._b(
+                    { staticClass: "mr-3" },
+                    "img",
+                    {
+                      src: item.thumbnail_url.replace(
+                        "{width}x{height}",
+                        "140x80"
+                      ),
+                      title: item.title,
+                      alt: item.title
+                    },
+                    false
+                  )
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "media-body" }, [
+                  _c("h5", { staticClass: "mt-0 mb-1" }, [
+                    _vm._v(_vm._s(item.user_name) + " | " + _vm._s(item.type))
+                  ]),
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(item.title) +
+                      " | "
+                  ),
+                  _c("strong", [
+                    _vm._v(_vm._s(item.viewer_count) + " viewers")
+                  ]),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "mt-1 btn btn-primary btn-sm text-white",
+                      on: {
+                        click: function($event) {
+                          return _vm.embedStream(item.user_name)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                                Play\n                            "
+                      )
+                    ]
+                  )
+                ])
+              ])
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8" }, [
         _c("div", { staticClass: "card mt-4 mb-4" }, [
           _c("div", { staticClass: "card-header text-white bg-primary" }, [
             _vm._v("Choose your favorite stream ")
@@ -11554,87 +11624,8 @@ var render = function() {
               ])
             ])
           ])
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "row justify-content-center" },
-      [
-        _c("div", { staticClass: "col-md-12 mb-4" }, [
-          _c("h2", [
-            _vm._v("\n                Most Popular Channels: "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-link",
-                attrs: { type: "button" },
-                on: { click: _vm.getChannels }
-              },
-              [_vm._v("Refresh Channels")]
-            )
-          ])
         ]),
         _vm._v(" "),
-        _vm._l(_vm.channels.data, function(item) {
-          return _c("div", { staticClass: "col-md-3" }, [
-            _c("div", { staticClass: "card" }, [
-              _c(
-                "img",
-                _vm._b(
-                  { staticClass: "image" },
-                  "img",
-                  {
-                    src: item.thumbnail_url.replace(
-                      "{width}x{height}",
-                      "286x180"
-                    ),
-                    title: item.title
-                  },
-                  false
-                )
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [
-                  _vm._v(_vm._s(item.user_name) + " | " + _vm._s(item.type))
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
-                  _vm._v(_vm._s(item.title))
-                ]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    directives: [
-                      {
-                        name: "scroll-to",
-                        rawName: "v-scroll-to",
-                        value: "#embed",
-                        expression: "'#embed'"
-                      }
-                    ],
-                    staticClass: "btn btn-primary text-white",
-                    on: {
-                      click: function($event) {
-                        return _vm.embedStream(item.user_name)
-                      }
-                    }
-                  },
-                  [_vm._v("Play")]
-                )
-              ])
-            ])
-          ])
-        })
-      ],
-      2
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-sm-12" }, [
         _vm._m(0),
         _vm._v(" "),
         _vm.events.length > 0

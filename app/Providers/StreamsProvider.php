@@ -41,7 +41,7 @@ class StreamsProvider implements StreamsProviderInterface, TwitchRequestInterfac
         ];
 
         $query = [
-            'first' => 4
+            'first' => 10
         ];
 
         $url = sprintf('https://api.twitch.tv/helix/streams?%s', http_build_query($query));
@@ -76,15 +76,20 @@ class StreamsProvider implements StreamsProviderInterface, TwitchRequestInterfac
 
         $url = sprintf('https://api.twitch.tv/helix/streams?%s', http_build_query($query));
         $request = new Request('GET', $url);
-
         $response = $this->makeRequest($request, $options);
 
-        $this->streamerSubscribe($response, $token);
+        // Subscribe webhook hub
+        $this->subscribeStreamerOnWebhookHub($response, $token);
 
         return $response;
     }
 
-    private function streamerSubscribe(ResponseInterface $response, string $token): void
+    /**
+     * @param ResponseInterface $response
+     * @param string $token
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    private function subscribeStreamerOnWebhookHub(ResponseInterface $response, string $token): void
     {
         $params = json_decode($response->getBody()->getContents(), true);
         if (empty($params) === true) {
@@ -92,7 +97,6 @@ class StreamsProvider implements StreamsProviderInterface, TwitchRequestInterfac
         }
 
         $userId = $params['data'][0]['user_id'];
-
         $webhookUrl = 'https://api.twitch.tv/helix/webhooks/hub';
         $url = sprintf('https://api.twitch.tv/helix/users?id=%d', $userId);
 

@@ -1,7 +1,32 @@
 <template>
     <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-sm-12">
+        <div class="row">
+            <div class="col-md-4 mt-4 mb-4">
+                <h2>
+                    Most Popular Channels: <button type="button" v-on:click="getChannels" class="btn btn-link">Refresh Channels</button>
+                </h2>
+                <div class="media mt-4">
+                    <ul class="list-unstyled">
+                        <li class="media mb-4" v-for="item in channels.data">
+                            <img class="mr-3"
+                                 v-bind="{
+                                src: item.thumbnail_url.replace('{width}x{height}', '140x80'),
+                                title: item.title,
+                                alt: item.title
+                             }"
+                            >
+                            <div class="media-body">
+                                <h5 class="mt-0 mb-1">{{ item.user_name }} | {{ item.type }}</h5>
+                                {{ item.title }} | <strong>{{ item.viewer_count }} viewers</strong><br />
+                                <a v-on:click="embedStream(item.user_name)" class="mt-1 btn btn-primary btn-sm text-white">
+                                    Play
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8">
                 <div class="card mt-4 mb-4">
                     <div class="card-header text-white bg-primary">Choose your favorite stream </div>
                     <div class="card-body">
@@ -15,8 +40,7 @@
                                     <button class="btn btn-primary text-white btn-outline-secondary"
                                             v-on:click="embedStream(channel)"
                                             v-scroll-to="'#embed'"
-                                            type="button"
-                                    >
+                                            type="button">
                                         Search
                                     </button>
                                 </div>
@@ -24,35 +48,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-md-12 mb-4">
-                <h2>
-                    Most Popular Channels: <button type="button" v-on:click="getChannels" class="btn btn-link">Refresh Channels</button>
-                </h2>
-            </div>
-            <div class="col-md-3" v-for="item in channels.data">
-                <div class="card">
-                    <img
-                        v-bind="{
-                            src: item.thumbnail_url.replace('{width}x{height}', '286x180'),
-                            title: item.title
-                         }"
-                        class="image"
-                    />
-                    <div class="card-body">
-                        <h5 class="card-title">{{ item.user_name }} | {{ item.type }}</h5>
-                        <p class="card-text">{{ item.title }}</p>
-                        <a v-on:click="embedStream(item.user_name)" v-scroll-to="'#embed'" class="btn btn-primary text-white">Play</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-sm-12">
                 <div class="embed-responsive embed-responsive-16by9 mt-4">
                     <div id="embed" class="embed-responsive-item"></div>
                 </div>
@@ -128,7 +123,6 @@
                 this.events = [];
                 document.getElementById("embed").innerHTML = "";
                 let embed = {};
-
                 if (username == '') {
                     return ;
                 }
